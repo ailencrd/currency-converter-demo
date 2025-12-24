@@ -1,0 +1,13 @@
+.content {
+  position: relative;
+  min-height: 30vh;
+  background-color: #6339ff;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .content {
+    min-height: 60vh;
+  }
+}

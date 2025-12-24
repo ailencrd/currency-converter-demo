@@ -1,0 +1,10 @@
+.main-title {
+  color: white;
+  padding: 4rem;
+  font-size: 2.25rem;
+  font-weight: 600;
+}
+
+.main-title-empty-state {
+  height: 170px;
+}

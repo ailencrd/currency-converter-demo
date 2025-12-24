@@ -1,0 +1,21 @@
+.currency-swap-button {
+  min-width: 44px;
+  height: 44px;
+  border-radius: 50%;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: transparent;
+  border: 2px solid #6339ff; /* color del borde */
+  color: #6339ff;
+  cursor: pointer;
+  align-self: center;
+  
+  transition: background-color 0.2s ease;
+}
+
+.currency-swap-button:hover {
+  background-color: #e4ddff;
+}

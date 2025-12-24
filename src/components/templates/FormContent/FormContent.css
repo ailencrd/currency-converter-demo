@@ -1,0 +1,12 @@
+.form-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .form-content {
+    padding-bottom: 10vh;
+  }
+}
