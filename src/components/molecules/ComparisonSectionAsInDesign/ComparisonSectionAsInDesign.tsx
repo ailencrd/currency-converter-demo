@@ -5,15 +5,9 @@ import { getRateByCurrency } from "../../../services/currency.services";
 import type { ICurrencyOption } from "../../../types/currency.types";
 import { convertValue } from "../../../utils/convertValue";
 import { formatAmount } from "../../../utils/formatAmount";
-import SkeletonDiv from "../../atoms/Skeleton/Skeleton";
+import CurrencyRate from "../../atoms/CurrencyRate/CurrencyRate";
+import CurrencyRateLoadingState from "../../atoms/CurrencyRateLoadingState";
 import "./ComparisonSectionAsInDesign.css";
-
-const ComparisonSectionLoadingState = () => (
-  <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-    <SkeletonDiv style={{ height: 77, width: "80%" }} />
-    <SkeletonDiv style={{ height: 20, width: "60%" }} />
-  </div>
-);
 
 const DetailText = ({
   referenceCurrency,
@@ -49,27 +43,52 @@ const DetailText = ({
 };
 
 const ComparisonSectionAsInDesign = () => {
-  const { amountValue, to, secondaryCurrency, baseCurrency, isReady } =
+  const { amountValue, to, secondaryCurrency, baseCurrency } =
     useCurrencyFormData();
   const { currencyRate, loading } = useCurrencyConverter();
 
-  if (!isReady || !currencyRate || loading)
-    return <ComparisonSectionLoadingState />;
+  if (!currencyRate || !baseCurrency || !secondaryCurrency || loading)
+    return <CurrencyRateLoadingState />;
+
+  // Algunas monedas presentes en currencyOptions no están en los rates, por eso se agrega esta validación
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (currencyRate.rates[to] === undefined)
+    return (
+      <CurrencyRate
+        title="Conversión inválida"
+        detail="Las monedas que estás intentando comparar no tienen relación, por
+          favor intentá con otras monedas"
+      />
+    );
+
+  if (amountValue < 1)
+    return (
+      <CurrencyRate
+        title={
+          <>
+            {baseCurrency.name} to {secondaryCurrency.name}
+          </>
+        }
+        detail="Ingresa un número válido para convertirlo a la moneda solicitada"
+      />
+    );
 
   return (
-    <div className="container">
-      <h1 className="title">
-        {formatAmount(amountValue)} {baseCurrency?.name} = <br />
-        {formatAmount(convertValue(amountValue, to, currencyRate), 6)}{" "}
-        {secondaryCurrency?.name}
-      </h1>
-      {baseCurrency && secondaryCurrency && (
+    <CurrencyRate
+      title={
+        <>
+          {formatAmount(amountValue)} {baseCurrency.name} = <br />
+          {formatAmount(convertValue(amountValue, to, currencyRate), 6)}{" "}
+          {secondaryCurrency.name}
+        </>
+      }
+      detail={
         <DetailText
           referenceCurrency={secondaryCurrency}
           secondaryCurrency={baseCurrency}
         />
-      )}
-    </div>
+      }
+    />
   );
 };
 

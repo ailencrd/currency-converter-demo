@@ -6,13 +6,15 @@ import tseslint from "typescript-eslint";
 import { defineConfig, globalIgnores } from "eslint/config";
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
+    rules: {
+      "react-hooks/exhaustive-deps": "warn",
+    },
     extends: [
       js.configs.recommended,
       tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
       tseslint.configs.strictTypeChecked,
       tseslint.configs.stylisticTypeChecked,
       reactHooks.configs.flat.recommended,
@@ -25,6 +27,13 @@ export default defineConfig([
         project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
+    },
+  },
+  // Override SOLO para tests
+  {
+    files: ["**/*.test.{ts,tsx}"],
+    rules: {
+      "react-hooks/exhaustive-deps": "off",
     },
   },
 ]);

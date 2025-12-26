@@ -1,10 +1,11 @@
 import { FormProvider, useForm } from "react-hook-form";
 import Header from "./components/atoms/Header/Header";
 import MainPage from "./components/pages/MainPage";
+import { ErrorBoundary } from "./components/templates/ErrorBoundary";
 import type { Inputs } from "./types/form.types";
 
 const initialValues = {
-  value: '1',
+  value: "1",
   from: "USD",
   to: "EUR",
 };
@@ -16,10 +17,12 @@ function App() {
   });
 
   return (
-    <FormProvider {...methods}>
-      <Header title="Currency converter" />
-      <MainPage />
-    </FormProvider>
+    <ErrorBoundary>
+      <FormProvider {...methods}>
+        <Header title="Currency converter" />
+        <MainPage />
+      </FormProvider>
+    </ErrorBoundary>
   );
 }
 

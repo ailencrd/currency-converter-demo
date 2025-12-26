@@ -1,4 +1,3 @@
-// currency.services.ts
 import type { ICurrencies, ICurrencyRate } from "../types/currency.types";
 import { HttpClient } from "./httpClient";
 

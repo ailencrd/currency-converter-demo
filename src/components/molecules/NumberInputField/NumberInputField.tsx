@@ -3,8 +3,8 @@ import type { INumberInputFieldProps } from "../../../types/form.types";
 import FieldErrorMessage from "../../atoms/FieldErrorMessage/FieldErrorMessage";
 import FormFieldContainer from "../../atoms/FormFieldContainer/FormFieldContainer";
 import Label from "../../atoms/Label/Label";
-import NumberInput from "../../atoms/NumberInput/NumberInput";
 import "./NumberInputField.css";
+import { sanitizeNumericInput } from "../../../utils/inputSanitizer";
 
 const NumberInputField = <T extends FieldValues = FieldValues>({
   disabled,
@@ -26,12 +26,21 @@ const NumberInputField = <T extends FieldValues = FieldValues>({
         <Label htmlFor={fieldName} text={label} />
         <div className="currency-input-wrapper">
           <span className="input-prefix">$</span>
-          <NumberInput
+          <input
             {...field}
             disabled={disabled}
-            min="0"
-            max="100000000"
-            customClassName="currency-input"
+            inputMode="decimal"
+            className="number-input"
+            onChange={(e) => {
+              const nextValue = sanitizeNumericInput(e.target.value, {
+                maxIntegers: 15,
+                maxDecimals: 2,
+              });
+
+              if (nextValue !== null) {
+                field.onChange(nextValue);
+              }
+            }}
           />
         </div>
         {error?.message && <FieldErrorMessage message={error.message} />}

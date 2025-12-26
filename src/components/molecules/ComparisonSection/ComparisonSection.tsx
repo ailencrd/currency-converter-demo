@@ -2,15 +2,8 @@ import { useCurrencyConverter } from "../../../hooks/useCurrencyConverter";
 import { useCurrencyFormData } from "../../../hooks/useCurrencyFormData";
 import { convertValue } from "../../../utils/convertValue";
 import { formatAmount } from "../../../utils/formatAmount";
-import SkeletonDiv from "../../atoms/Skeleton/Skeleton";
-import "./ComparisonSection.css";
-
-const ComparisonSectionLoadingState = () => (
-  <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-    <SkeletonDiv style={{ height: 77, width: "80%" }} />
-    <SkeletonDiv style={{ height: 20, width: "60%" }} />
-  </div>
-);
+import CurrencyRate from "../../atoms/CurrencyRate/CurrencyRate";
+import CurrencyRateLoadingState from "../../atoms/CurrencyRateLoadingState";
 
 const ComparisonSection = () => {
   const { amountValue, to, secondaryCurrency, baseCurrency } =
@@ -18,20 +11,45 @@ const ComparisonSection = () => {
   const { currencyRate, loading } = useCurrencyConverter();
 
   if (!currencyRate || !baseCurrency || !secondaryCurrency || loading)
-    return <ComparisonSectionLoadingState />;
+    return <CurrencyRateLoadingState />;
+
+  // Algunas monedas presentes en currencyOptions no están en los rates, por eso se agrega esta validación
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (currencyRate.rates[to] === undefined)
+    return (
+      <CurrencyRate
+        title="Conversión inválida"
+        detail="Las monedas que estás intentando comparar no tienen relación, por
+          favor intentá con otras monedas"
+      />
+    );
+
+  if (amountValue < 1)
+    return (
+      <CurrencyRate
+        title={
+          <>
+            {baseCurrency.name} to {secondaryCurrency.name}
+          </>
+        }
+        detail="Ingresa un número válido para convertirlo a la moneda solicitada"
+      />
+    );
 
   return (
-    <div className="container">
-      <h1 className="title">
-        {formatAmount(amountValue)} {baseCurrency.name} = <br />
-        {formatAmount(convertValue(amountValue, to, currencyRate), 6)}{" "}
-        {secondaryCurrency.name}
-      </h1>
-      <h2 className="detail">{`1 ${baseCurrency.symbol} = ${formatAmount(
+    <CurrencyRate
+      title={
+        <>
+          {formatAmount(amountValue)} {baseCurrency.name} = <br />
+          {formatAmount(convertValue(amountValue, to, currencyRate), 6)}{" "}
+          {secondaryCurrency.name}
+        </>
+      }
+      detail={`1 ${baseCurrency.symbol} = ${formatAmount(
         convertValue(1, secondaryCurrency.symbol, currencyRate),
         6
-      )} ${secondaryCurrency.symbol}`}</h2>
-    </div>
+      )} ${secondaryCurrency.symbol}`}
+    />
   );
 };
 

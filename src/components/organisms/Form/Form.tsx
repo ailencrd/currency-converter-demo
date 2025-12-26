@@ -1,5 +1,5 @@
 import ComparisonSection from "../../molecules/ComparisonSection/ComparisonSection";
-//import ComparisonSectionAsInDesign from "../../molecules/ComparisonSectionAsInDesign/ComparisonSectionAsInDesign";
+// import ComparisonSectionAsInDesign from "../../molecules/ComparisonSectionAsInDesign/ComparisonSectionAsInDesign";
 import MessageSection from "../../molecules/MessageSection/MessageSection";
 import CurrencyConverterForm from "../CurrencyConverterForm/CurrencyConverterForm";
 import "./Form.css";

@@ -8,14 +8,19 @@
   justify-content: center;
 
   background-color: transparent;
-  border: 2px solid #6339ff; /* color del borde */
+  border: 2px solid #6339ff;
   color: #6339ff;
   cursor: pointer;
   align-self: center;
-  
+
   transition: background-color 0.2s ease;
 }
 
 .currency-swap-button:hover {
   background-color: #e4ddff;
+}
+.currency-swap-button:disabled {
+  background-color: #f3f4f6;
+  border: 2px solid #9ca3af;
+  color: #9ca3af;
 }

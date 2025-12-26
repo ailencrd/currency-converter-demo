@@ -7,6 +7,6 @@ export const convertValue = (
 ): number => {
   if (!value || !to) return 0;
   const toValue = currencyRate.rates[to];
-  if (!toValue) return 0;
+
   return value * toValue;
 };

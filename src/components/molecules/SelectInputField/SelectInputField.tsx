@@ -18,7 +18,7 @@ const SelectInputField = <T extends FieldValues = FieldValues>({
       <FormFieldContainer>
         <Label htmlFor={fieldName} text={label} />
         <div className="select-wrapper">
-          <select {...field} className="select" disabled={disabled}>
+          <select {...field} className="select" disabled={disabled || !options.length}>
             {options.map((option) => (
               <option key={option.symbol} value={option.symbol}>
                 {option.name}

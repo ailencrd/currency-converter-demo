@@ -8,7 +8,10 @@ export const useCurrenciesQuery = () =>
   useQuery({
     queryKey: ["currencies"],
     queryFn: getCurrencies,
-    staleTime: Infinity, // no cambian casi nunca
+    staleTime: Infinity,
+    retry: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 
 export const useCurrencyRateQuery = (base: string) =>
@@ -16,5 +19,8 @@ export const useCurrencyRateQuery = (base: string) =>
     queryKey: ["currency-rate", base],
     queryFn: () => getRateByCurrency(base),
     enabled: !!base,
-    staleTime: 1000 * 60, // 1 minuto
+    staleTime: 1000 * 60,
+    retry: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
