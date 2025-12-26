@@ -35,5 +35,9 @@ npm install
 1. Correr `npm run build`
 Los archivos finales se generan en la carpeta `dist/`
 2. Para correr localmente el build generado: `npm run preview`
+   
+## 🧪 Ejecutar tests
+1. Correr `npm run test`
+
 
 
