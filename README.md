@@ -2,6 +2,8 @@
 
 Aplicación **SPA** desarrollada con **React**, **TypeScript** y **Vite** que permite realizar conversiones de moneda.
 
+Esta aplicación fue desarrollada como parte de un code challenge dentro de un proceso de selección y no está pensada para su uso en producción.
+
 ## 📋 Requisitos
 - **Node.js** (versión recomendada: 18 o superior)
 - **npm** (o un gestor compatible)
@@ -27,17 +29,18 @@ cd currency-converter-demo
 npm install
 ```
 
-## ▶️ Ejecutar el proyecto en modo desarrollo
+### ▶️ Ejecutar el proyecto en modo desarrollo
 1. Correr `npm run dev`
 2. Acceder a `http://localhost:3000/`
 
-## 🔧 Generar build de producción
+### 🔧 Generar build de producción
 1. Correr `npm run build`
 Los archivos finales se generan en la carpeta `dist/`
 2. Para correr localmente el build generado: `npm run preview`
-   
-## 🧪 Ejecutar tests
+
+### 🧪 Ejecutar tests
 1. Correr `npm run test`
 
+## Documentación adicional
 
-
+- [Decisiones de desarrollo](./DEVELOPMENT_NOTES.md)
